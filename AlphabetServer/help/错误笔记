@@ -1,0 +1,9 @@
+
+1：对于数据库乱码：?useUnicode=true&amp;characterEncoding=utf-8
+
+
+	开启：sudo /etc/init.d/mysql start
+	停止：sudo /etc/init.d/mysql stop
+	重启：sudo /etc/init.d/mysql restart
+
+2：

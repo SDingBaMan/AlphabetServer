@@ -1,0 +1,222 @@
+
+1：
+    对date数据的处理。
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+    //"yyyyMMdd"   --  > 要使用的类型。
+    System.out.println(df.format(new Date()));// new Date()为获取当前系统时间
+
+
+2：
+    //工程使用规范：
+    AccountDao dao = BasicFactory.getFactory().getInstance(AccountDao.class);
+    UserManServer server = BasicFactory.getFactory().getInstance(UserManServer.class);
+                //insert
+                public void addProd(Product prod) {
+                    String sql = "insert into products values (?,?,?,?,?,?,?)";
+                    try{
+                        QueryRunner runner = new QueryRunner(TransactionManager.getSource());
+                        runner.update(sql,prod.getId(),prod.getName(),prod.getPrice(),prod.getCategory(),prod.getPnum(),prod.getImgurl(),prod.getDescription());
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
+                    }
+                }
+
+    //////////////////////////////////////////////////////////////
+                List<>
+                String sql = "select * from products";
+                try{
+                    QueryRunner runner = new QueryRunner(TransactionManager.getSource());
+                    return runner.query(sql, new BeanListHandler<Product>(Product.class));
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    ***********************************************************************************************
+    ***********************************************************************************************
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+
+
+        public List<Map<String, Object>> getAddressList(String userid) {
+            /*
+             * "response": " addresslist", "addresslist": [ //地址列表 { "id": "1001",
+             * //地址簿ID "name": "肖文", //收货人姓名 "phonenumber": "15801477821", //手机号码
+             * "fixedtel":"010-88496666" //固定电话 "provinceId": "102", //省ID
+             *
+             * "cityId": "10203", //市ID "areaId": "1020304", //地区ID "areaDetail":
+             * "闵庄路3号", //订单地址 "zipCode": "100195", //邮编 },
+             */
+            String sql = "select * from address where user_id=" + userid;
+
+            try {
+                return runner.query(sql, new MapListHandler());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+            public List<Banner> queryBanner() {
+        		String sql = "select * from banner";
+        		try {
+        			return runner.query(sql, new BeanListHandler<Banner>(Banner.class));
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        		return null;
+        	}
+
+
+        public List<Map<String,Object>> getCategory(int version){
+        		/**
+        		 *
+        			{
+        			"id":"1",
+        			"isleafnode":false,
+        			"name":"奶粉,
+        			"parentId":"0",
+        			"pic":"",
+        			"tag":"孕妇奶粉   幼儿奶粉"
+        			},
+        		 */
+        		String sql = "select id,parentid,name,isleafnode,tag,pic_id from category where state=1 and version>?";
+        		try {
+        			return runner.query(sql, new MapListHandler(), 1);
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        		return null;
+        	}
+
+
+
+        public Map<String, Object> login(String username, String password) {
+        		try {
+        //			"response": " login",
+        //			  "userinfo":{
+        //			    "userId": 30505
+        //			}
+
+        			String sql = "select userid from userinfo where username = ? and password = ?";
+        			Map<String, Object> result = runner.query(sql , new MapHandler(), username, password);
+        			return result;
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        		return null;
+        }
+
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+
+          public Map<String, Object> login(String username, String password) {
+                    try {
+            //			"response": " login",
+            //			  "userinfo":{
+            //			    "userId": 30505
+            //			}
+
+                        String sql = "select userid from userinfo where username = ? and password = ?";
+                        Map<String, Object> result = runner.query(sql , new MapHandler(), username, password);
+                        return result;
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+          }
+
+
+
+        System.out.println("username:" + username + "——password:" + password);
+        		if ("".equals(password) && "".equals(username)) {
+        			return;
+        		}
+        		System.out.println("11111111111111111111111");
+        		UserinfoDaoImpl impl = new UserinfoDaoImpl();
+        		System.out.println("========================");
+
+        		Map<String, Object> map = impl.UserId(username, password);
+
+        		// TODO 输入的用户名密码不正确，需提示用户
+        		Map<String, Object> data = null;
+        		if (map == null) {
+        			Map<String, String> error = new HashMap<String, String>();
+        			error.put("text", "用户名或密码错误！");
+
+        			data = new HashMap<String, Object>();
+        			data.put("response", "error");
+        			data.put("error", error);
+        		} else {
+        			data = new HashMap<String, Object>();
+        			data.put("response", "login");
+        			data.put("userinfo", map);
+        			System.out.println("xxx : "+map.toString());
+        		}
+        		/**
+        		 * {"response":"login","userinfo":{"userId":1}}
+        		 */
+        		CommonUtil.renderJson(response, data);
+        ///////////////////////////////////////////////////////////////
+
+  3：
+
+    所有的 dao 继承 daobase<xxx>   -->  传递类对象
+    所有的 daoImpl 继承 daobaseImpl 并且实现 dao 接口
+
+    public interface UserManDao extends daobase<UserMan>
+
+    public class UserManDaoimpl extends daobaseImpl<UserMan> implements UserManDao
+
+
+
+  4:
+       对 daobase<xxx> 传递进来的泛型，通过反射实例化
+       protected Class<T> clazz = null; // 这是一个问题！
+
+       // 通过反射获取T的真是类型
+       ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+       this.clazz = (Class<T>) pt.getActualTypeArguments()[0];
+
+
+  5:
+    下面2个方法不是通用的；要遭对应的 dean里面定义 返回 数据库表的名称
+    SQLTableRecevierIdToData  -- > 来查询 List 的，通过 RecevierId
+    SQLTableSendIdToData
+
+    returnSQLTableListId  --> 用来对所有的返回结果
+
+
+
+  6
+        Sendqq,SendMessage,FriendUser 含 send 和 revices 的方法。
+
+
+
+  7 数据库
+    select * from UserMan where umId in
+                                (select friendId from FriendUser where userId='sdingba');
+
+
+    select friendId from FriendUser where userId='sdingba';
+
+
+
+    select * from FriendUser group BY userId;
+
+    select group_concat(friendId) from FriendUser
+                where userId='sdingba' GROUP BY userId;
+
+    select UserMan.umid,UserMan.username from UserMan WHERE UserMan
+    inner join FriendUser on UserMan.umid=FriendUser.userId
+
+  8：
+    //下面2个效果一样。
+       List<Map<String, Object>> returnFriendList(String username);
+
+       List<UserMan> returnFriendListUserManDao(String username);
