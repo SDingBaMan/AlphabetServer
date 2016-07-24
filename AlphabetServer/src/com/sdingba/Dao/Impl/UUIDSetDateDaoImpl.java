@@ -56,6 +56,7 @@ public class UUIDSetDateDaoImpl extends daobaseImpl<UUIDSetDate> implements UUID
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return 0;
     }
 

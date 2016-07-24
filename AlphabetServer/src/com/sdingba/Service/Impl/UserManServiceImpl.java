@@ -4,6 +4,7 @@ import com.sdingba.Dao.UserLoginDao;
 import com.sdingba.Dao.UserManDao;
 import com.sdingba.Service.UserManService;
 import com.sdingba.domain.daoBean.UserLogin;
+import com.sdingba.domain.daoBean.UserMan;
 import com.sdingba.factory.Factory;
 
 import java.util.List;
@@ -35,5 +36,12 @@ public class UserManServiceImpl implements UserManService{
         UserManDao dao = Factory.getFactory().getInstance(UserManDao.class);
 
         return dao.returnFriendList(username);
+    }
+
+    @Override
+    public Map<String,Object> findUser(String name) {
+        UserManDao dao = Factory.getFactory().getInstance(UserManDao.class);
+        Map<String,Object> map = dao.UserIdFromUserMan(name);
+        return map;
     }
 }

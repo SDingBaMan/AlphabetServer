@@ -19,7 +19,14 @@ import java.text.SimpleDateFormat;
 
 
 /**
+ *
+ * 提交每天吸烟的数量
+ *
  * Created by su on 16-6-24.
+ * http://localhost:8080/alphabetService/SendUserData?
+ * userId=alphabet&datatime=20160518&lastYanNumber=22&yiyanNumber=22
+ *
+ * 获取用户的数据
  */
 @WebServlet(name = "SendUserData", urlPatterns = "/SendUserData")
 public class SendUserData extends HttpServlet {
@@ -57,7 +64,9 @@ public class SendUserData extends HttpServlet {
         userdate.setSurplusNumber(Integer.parseInt(lastYan));
         userdate.setUserId(id);
 
+
         String result = service.CurdUserDataDay(userdate);
+
         System.out.println(result + " ====== ");
         try {
             PrintWriter out = response.getWriter();

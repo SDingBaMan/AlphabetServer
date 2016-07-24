@@ -220,3 +220,7 @@
        List<Map<String, Object>> returnFriendList(String username);
 
        List<UserMan> returnFriendListUserManDao(String username);
+
+
+  9
+      Map<String ,Object>只能返回一条数据，想要返回多条使用List《map》

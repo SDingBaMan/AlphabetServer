@@ -16,7 +16,6 @@ public interface UserManDao extends daobase<UserMan> {
 
     //下面2个效果一样。
     List<Map<String, Object>> returnFriendList(String username);
-
     List<UserMan> returnFriendListUserManDao(String username);
 
 }

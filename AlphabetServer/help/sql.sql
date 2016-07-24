@@ -61,6 +61,20 @@ create table Sendqq(
 	foreign key(SendId) references UserMan(UMId)
 ) ;
 
+/**
+    zengs
+ */
+create table sendNumber(
+	snId int auto_increment,
+	reciveId varchar(200) not null,
+	sendId varchar(200),
+	uumber varchar(100),
+	datetime date,
+	primary key (snId),
+	foreign key(reciveId) references UserMan(umId),
+	foreign key(sendId) references UserMan(umId)
+) ;
+
 /*
    好友留言表n
    ReciveId varchar(200) not null,

@@ -18,16 +18,16 @@ import java.util.Map;
  * Created by su on 16-6-25.
  * 客户端 获取 服务器 的 最后一次的数据；
  * （  设置吸烟计划的数据  ）
- *
+ * <p>
  * http://localhost:8080/alphabetService/ReturnSetDateYan?username=sdingba
- *
- *  //{
- // "result":{
- // "dataJiHua":"6:6,6:6,6:6,6:12,6:12,7:12",
- // "startTime":"20160808"
- // },
- // "response":"getSetDataYan"
- // }
+ * <p>
+ * //{
+ * // "result":{
+ * // "dataJiHua":"6:6,6:6,6:6,6:12,6:12,7:12",
+ * // "startTime":"20160808"
+ * // },
+ * // "response":"getSetDataYan"
+ * // }
  */
 @WebServlet(name = "ReturnSetDateYan", urlPatterns = "/ReturnSetDateYan")
 public class ReturnSetDateYan extends HttpServlet {
@@ -61,10 +61,10 @@ public class ReturnSetDateYan extends HttpServlet {
         CommonUtil.renderJson(response, map);
 
         //{
-        // "result":{
-        // "dataJiHua":"6:6,6:6,6:6,6:12,6:12,7:12",
-        // "startTime":"20160808"
-        // },
+        // "resultSetdata":{
+        //     "dataJiHua":"6:6,6:6,6:6,6:12,6:12,7:12",
+        //     "startTime":"20160808"
+        //  },
         // "response":"getSetDataYan"
         // }
 

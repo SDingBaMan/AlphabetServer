@@ -17,6 +17,21 @@ import java.util.Map;
 
 /**
  * Created by su on 16-6-22.
+ * http://localhost:8080/alphabetService/GetFriendById?username=sdingba
+ *
+ * {"friendlistdata":[
+ *
+ * {"umId":"aaaa","username":"aaaa"},
+ * {"umId":"admin","username":"管理猿"},
+ * {"umId":"alphabet","username":"之母表"},
+ * {"umId":"jayzhou","username":"周杰伦"},
+ * {"umId":"kobe","username":"科比"},
+ * {"umId":"kunling","username":"昆凌"},
+ * {"umId":"xiong","username":"熊"},
+ * {"umId":"xiongxiong","username":"熊"}
+ *
+ * ],"response":"friendlist"}
+ *
  */
 @WebServlet(name = "GetFriendById",urlPatterns = "/GetFriendById")
 public class GetFriendById extends HttpServlet {
@@ -33,7 +48,9 @@ public class GetFriendById extends HttpServlet {
         }
 
         UserManService serviceUserMan = Factory.getFactory().getInstance(UserManService.class);
+
         List<Map<String, Object>> map = serviceUserMan.UserManFormIDByFriendList(username);
+
         Map<String, Object> data = new HashMap<String, Object>();
         if (map.isEmpty()) {
 

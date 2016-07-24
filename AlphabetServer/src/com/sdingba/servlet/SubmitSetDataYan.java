@@ -18,7 +18,8 @@ import java.sql.Time;
 /**
  * Created by su on 16-6-25.
  * 客服端 提交给 服务数据
- * http://localhost:8080/alphabetService/SubmitSetDataYan?username=sdingba&starttime=20160808&datasetSc=6:6,6:6,6:6,6:12,6:12,7:12
+ * http://localhost:8080/alphabetService/SubmitSetDataYan?
+ * username=sdingba&starttime=20160808&datasetSc=6:6,6:6,6:6,6:12,6:12,7:12
  */
 @WebServlet(name = "SubmitSetDataYan", urlPatterns = "/SubmitSetDataYan")
 public class SubmitSetDataYan extends HttpServlet {

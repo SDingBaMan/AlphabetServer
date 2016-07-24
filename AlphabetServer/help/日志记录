@@ -2,3 +2,45 @@
 
 2016,6,1实现架构的发件，利用反射实现 公共 函数；
 
+
+
+select * from Alphabet.UUIDSetDate where setNum=(select timeSetNum from Alphabet.Settings);
+
+select timeSetNum from Alphabet.Settings;
+
+select * from Alphabet.Settings where userId = 'sdingba';
+
+select max(timeSetNum) from Alphabet.Settings where userId = 'sdingba';
+
+-- 获取最大的那条数据
+select * from Alphabet.Settings where userId = 'sdingba' and
+		timeSetNum=(select max(timeSetNum) from Alphabet.Settings where userId = 'sdingba');
+
+select * from Alphabet.UUIDSetDate where setNum = '3' and setId='sdingba' order by timeOrder;
+
+insert into Alphabet.UUIDSetDate values (null,'sdingba','4','5','1','3'),(null,'sdingba','4','5','1','3');
+
+select max(timeSetNum) from Alphabet.Settings where userId = 'alphabet'
+-- ,(null,'sdingba','4','5','5','2','3');
+
+
+
+
+
+
+
+
+
+
+
+
+
+select max(datetime) from Alphabet.UserData where userId = 'sdingba';
+
+
+select * from Alphabet.UserData where userId = 'sdingba' and
+		datetime=(select max(datetime) from Alphabet.UserData where userId = 'sdingba');
+
+select * from UserData where userId='sdingba' order by datetime desc limit 5;
+
+select * from UserData where date_sub(curdate(), INTERVAL 7 DAY) <= date(`add_time`);

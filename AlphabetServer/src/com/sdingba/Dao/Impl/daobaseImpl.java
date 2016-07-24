@@ -49,6 +49,7 @@ public class daobaseImpl<T> implements daobase<T> {
         String sql = "select * from " + clazzDaoName + " where TableId = ?";
         try {
             sql = getTableSQL(sql);
+            System.out.println(sql);
             return runner.query(sql,
                     new BeanHandler<T>(clazz), Id);
         } catch (Exception e) {

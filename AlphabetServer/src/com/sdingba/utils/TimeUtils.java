@@ -16,9 +16,34 @@ public class TimeUtils {
         return df.format(new Date());
     }
 
+    public static String getSqlNewDay() {
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        return df.format(new Date());
+    }
+
+    public static  java.sql.Date getesqlNewDayF() {
+        String time = TimeUtils.getSqlNewDay();
+        java.sql.Date datatimeCun = java.sql.Date.valueOf(time);
+        return datatimeCun;
+    }
+
+    public static java.sql.Date getsetSendNumberYanzengsongDate() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);//让日期加1
+
+        String dayTime = df.format(calendar.getTime());
+        return java.sql.Date.valueOf(dayTime);
+    }
+
     /**
      * 返回最后一天的 时间
-     * @param alltime
+     *
+     * @param alltime 时间 天数
      * @return
      */
     public static String getEndDateTime(String alltime) {
@@ -55,6 +80,13 @@ public class TimeUtils {
     }
 
 
+    /**
+     * 通过开始时间  和   结束 时间 计算 所用时间
+     *
+     * @param start
+     * @param end
+     * @return
+     */
     public static String getalltimebytime(String start, String end) {
 //        String d1 = "2015-04-17";
 //        String d2 = "2015-06-17";
@@ -71,7 +103,7 @@ public class TimeUtils {
     }
 
     /**
-     * 吧 20130303 的自覅吃格式  转化 成 sql.date的格式
+     * 吧 20130303 的 utils.data格式  转化 成 sql.date的格式
      *
      * @param day
      * @return

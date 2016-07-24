@@ -34,7 +34,7 @@ public class EncodingFilter implements Filter {
 
 		// POST请求中文问题
 		request.setCharacterEncoding(encoding);
-		// 响应输出编码和浏览器使用的编�?
+		// 响应输出编码和浏览器使用的编码
 		response.setCharacterEncoding(encoding);
 		response.setContentType("text/html;charset=" + encoding);
 
